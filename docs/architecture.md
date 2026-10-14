@@ -44,9 +44,9 @@
 
 ## IPC 层（Electron IPC）
 
-当前**技术决策：使用 Electron IPC**（非 Tauri Command）。原因：脚手架已基于 Electron，
-node-pty 等 Node 原生生态成熟。Tauri 作为未来备选（更小体积、Rust 后端），若迁移则此层
-为主要改动面，因此契约集中在 `src/shared/ipc.ts` 以降低耦合。
+当前**技术决策：IPC 层固定使用 Electron IPC，不考虑 Tauri**。脚手架已基于 Electron，
+node-pty 等 Node 原生生态成熟，技术选型就此定稿。契约集中在 `src/shared/ipc.ts`，作为主/
+渲染通信的单一数据源。
 
 - `src/shared/ipc.ts`：通道名常量 + 消息类型，主/渲染单一数据源
 - `src/preload/index.ts`：经 `contextBridge` 暴露白名单 API（`startSession` / `writeSession` /
